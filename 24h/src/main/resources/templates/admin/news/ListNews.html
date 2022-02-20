@@ -44,12 +44,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Thêm mới bài viế</h1>
+                        <h1 class="m-0 text-dark">Danh sách bản tin</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v2</li>
+                            <li class="breadcrumb-item active">Danh sách bản tin</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -60,7 +60,39 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <!-- Small boxes (Stat box) -->
+
+                <div class="card">
+                    <div class="card-header">
+                        <button style="width: 15%" type="button" id="btnAddNews" class="btn btn-block btn-outline-success">Thêm mới bài viết</button>
+                    </div>
+                    <div class="card-body">
+                        <table border="1" class="table table-bordered">
+                            <tr>
+                                <th>STT</th>
+                                <th>Tiêu đề</th>
+                                <th>Tác giả</th>
+                                <th>Nguồn</th>
+                                <th>Số lần truy cập</th>
+                                <th>Hành động</th>
+                            </tr>
+
+                            <tr th:each ="data : ${list}">
+                                <td th:utext="${data.id}"></td>
+                                <td th:utext="${data.title}">...</td>
+                                <td th:utext="${data.author}">...</td>
+                                <td th:utext="${data.originalResource}">...</td>
+                                <td th:utext="${data.numberAccess}">...</td>
+                                <td>
+                                    <button>Chi tiết</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+
 
             </div><!-- /.container-fluid -->
         </section>
@@ -114,5 +146,18 @@
 <script th:src="@{/admin/dist/js/pages/dashboard.js}"></script>
 <!-- AdminLTE for demo purposes -->
 <script th:src="@{/admin/dist/js/demo.js}"></script>
+
+<script>
+    $('#btnAddNews').click(function (){
+
+        window.location.href='http://localhost:8081/news/create'
+    });
+
+</script>
+<script th:inline="javascript">
+    var data = [[${list}]]
+    debugger;
+    console.log(data);
+</script>
 </body>
 </html>

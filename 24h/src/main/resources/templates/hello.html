@@ -9,17 +9,7 @@
 </head>
 <body>
 
-<h1>Thêm bài đăng</h1>
-
-<form th:action="@{/news/save}" th:object="${newRequest}" method="post">
-
-    Mã bài đăng: <input type="text" th:field = "*{id}"><br>
-    Tiêu đề: <input type="text" th:field = "*{title}"> <br>
-    Tác giả: <input type="text" th:field = "*{author}"> <br>
-    Nguồn: <input type="text" th:field = "*{originalResource}"> <br>
-    content: <input type="text" th:field = "*{content}">
-    <input type="submit" value="create">
-</form>
-
+<h1>Hello world</h1><br>
+<a href="/news">Danh sách bài đăng</a>
 </body>
 </html>

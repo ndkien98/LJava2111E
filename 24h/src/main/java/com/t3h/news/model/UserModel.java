@@ -1,6 +1,8 @@
 package com.t3h.news.model;
 
 
+import java.util.List;
+
 public class UserModel {
 
     private Integer id;
@@ -8,6 +10,8 @@ public class UserModel {
     private String fullName;
 
     private String username;
+
+    private List<RoleModel> roleModels;
 
     private String password;
 
@@ -41,5 +45,13 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<RoleModel> getRoleModels() {
+        return roleModels;
+    }
+
+    public void setRoleModels(List<RoleModel> roleModels) {
+        this.roleModels = roleModels;
     }
 }

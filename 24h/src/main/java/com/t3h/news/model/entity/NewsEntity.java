@@ -3,13 +3,13 @@ package com.t3h.news.model.entity;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+/**
+ * ORM:
+ *
+ */
 @Entity
 @Table(name = "news")
-public class NewsEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class NewsEntity extends BaseEntity {
 
     @Column()
     private String title;
@@ -17,21 +17,13 @@ public class NewsEntity {
     @Column(columnDefinition = "text")
     private String content;
 
-    @Column()
-    private Timestamp createDate;
-
-    @Column()
-    private Timestamp updateDate;
-
     private String avatar;
-
-    private int creatorId;
-
-    private int editorId;
 
     private String author;
 
-    private String categoryId;
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private CategoryEntity category;
 
     private String originalResource;
 
@@ -39,13 +31,6 @@ public class NewsEntity {
 
     private int censor;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -63,44 +48,12 @@ public class NewsEntity {
         this.content = content;
     }
 
-    public Timestamp getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
-    }
-
-    public Timestamp getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Timestamp updateDate) {
-        this.updateDate = updateDate;
-    }
-
     public String getAvatar() {
         return avatar;
     }
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    public int getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(int creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public int getEditorId() {
-        return editorId;
-    }
-
-    public void setEditorId(int editorId) {
-        this.editorId = editorId;
     }
 
     public String getAuthor() {
@@ -111,12 +64,12 @@ public class NewsEntity {
         this.author = author;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public CategoryEntity getCategory() {
+        return category;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 
     public String getOriginalResource() {

@@ -24,7 +24,6 @@ public class NewsServiceImpl implements INewsService {
 
     @Override
     public NewsModel add(NewsModel newsModel) {
-        INewsDao iNewsDao = new NewsDaoImpl();
         newsModel.setCreateDate(new Timestamp(System.currentTimeMillis()));
         newsModel.setUpdateDate(new Timestamp(System.currentTimeMillis()));
         newsModel.setNumberAccess(0);

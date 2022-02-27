@@ -6,6 +6,8 @@
     <title>AdminLTE 3 | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
     <link rel="stylesheet" th:href="@{/admin/plugins/font-awesome/css/font-awesome.min.css}">
     <!-- Ionicons -->
@@ -24,18 +26,27 @@
     <link rel="stylesheet" th:href="@{/admin/plugins/daterangepicker/daterangepicker-bs3.css}">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" th:href="@{/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css}">
-    <!-- Google Font: Source Sans Pro -->
-    <link th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700}" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" th:href="@{https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css}">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/admin/dist/css/adminlte.min.css}">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" th:href="@{/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css}">
+    <script th:src="@{https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js}"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
     <!-- Navbar -->
+    <!--    header-->
     <div th:replace="fragments/header"></div>
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <div th:replace="fragments/sidebar"></div>
+    <div th:replace="fragments/sidebar"/>
+    <!--    sidebar-->
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -44,12 +55,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Thêm mới bài viế</h1>
+                        <h1 class="m-0 text-dark">Thêm bản tin</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v2</li>
+                            <li class="breadcrumb-item"><a href="index">Home</a></li>
+                            <li class="breadcrumb-item active">Thêm bản tin</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -60,14 +71,73 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <!-- Small boxes (Stat box) -->
+                <!-- Chỉnh sửa ở đây! -->
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Nhập thông tin chi tiết bản tin</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <form role="form">
+                                    <div class="card-body">
+
+                                        <div class="form-group">
+                                            <label for="txtTitle">Tiêu đề</label>
+                                            <input type="text" class="form-control" id="txtTitle" placeholder="Nhập vào tiêu đề">
+                                        </div>
+                                        <div class="form-group">
+                                            <label >Nội dung</label>
+                                            <form action="" method="post">
+                                                <!-- (2): textarea sẽ được thay thế bởi CKEditor -->
+                                                <textarea id="txtContent" name="editor1" cols="80" rows="10">
+                                                </textarea>
+                                            </form>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtCategory">Thể loại</label>
+                                            <input type="text" class="form-control" id="txtCategory" placeholder="Thể loại">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtCategory">Tác giả</label>
+                                            <input type="text" class="form-control" id="txtAuthor" placeholder="Tác giả">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtOriginalResource">Link nguồn</label>
+                                            <input type="text" class="form-control" id="txtOriginalResource" placeholder="Link nguồn">
+                                        </div>
+
+
+                                    </div>
+                                    <!-- /.card-body -->
+
+                                    <div class="card-footer">
+                                        <button id="btnSaveNews" type="submit" class="btn btn-primary">Lưu</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <!-- /.tab-content -->
+                    </div><!-- /.card-body -->
+                </div>
+            </div>
+            <!--        Thông tin chi tiết , mô tả ngắn , mô tả chi tiết , ảnh-->
+            <div class="container-fluid">
+                <div class="row">
+
+                </div>
 
             </div><!-- /.container-fluid -->
+
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <div th:replace="fragments/footer"></div>
+    <!--    foorter-->
+    <div th:replace="fragments/footer" />
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
@@ -78,13 +148,56 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{plugins/jquery/jquery.min.js}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.min.js}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
+
+    CKEDITOR.replace('txtContent');
+
+    $('#btnSaveNews').click(function (){
+       var title = $('#txtTitle').val();
+       var content = CKEDITOR.instances.txtContent.getData();
+       var categoryId = $('#txtCategory').val();
+       var author = $('#txtAuthor').val();
+       var originalResource = $('#txtOriginalResource').val();
+
+        var newsModel = {
+            title: title,
+            content: content,
+            categoryId: categoryId,
+            author: author,
+            originalResource: originalResource
+        }
+        debugger;
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8081/api/admin/news',
+            data: JSON.stringify(newsModel),
+            contentType:'application/json',
+            error: function (error) {
+                alert("Thêm tin bài đaã lỗi!");
+            },
+            success: function (response) {
+                alert(" Thêm thành công!")
+                window.location.replace('http://localhost:8081/news');
+            }
+        });
+
+    });
+
+
 </script>
+<!-- Bootstrap 4 -->
+
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/admin/https://code.jquery.com/ui/1.12.1/jquery-ui.min.js}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+
 <!-- Bootstrap 4 -->
 <script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- Morris.js charts -->
@@ -114,5 +227,12 @@
 <script th:src="@{/admin/dist/js/pages/dashboard.js}"></script>
 <!-- AdminLTE for demo purposes -->
 <script th:src="@{/admin/dist/js/demo.js}"></script>
+<!-- CK Editor -->
+
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+
+
+</script>
 </body>
 </html>

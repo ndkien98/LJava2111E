@@ -23,13 +23,21 @@ public class NewsModel {
 
     private String author;
 
-    private String categoryId;
+    private int categoryId;
 
     private String originalResource;
 
     private int numberAccess;
 
     private int censor;
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public Integer getId() {
         return id;
@@ -101,14 +109,6 @@ public class NewsModel {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getOriginalResource() {

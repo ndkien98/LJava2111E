@@ -1,6 +1,7 @@
 package com.t3h.news;
 
 import org.hibernate.SessionFactory;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,68 +10,59 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.util.Properties;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = {
-        DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class
-})
 public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-    @Autowired
-    private Environment environment;
 
-    @Bean(name = "dataSource")
-    public DataSource getDataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName(environment.getProperty("spring.datasource.driver-class-name"));
-        dataSource.setUsername(environment.getProperty("spring.datasource.username"));
-        dataSource.setPassword(environment.getProperty("spring.datasource.password"));
-        dataSource.setUrl(environment.getProperty("spring.datasource.url"));
-        return dataSource;
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
     }
-
-    @Autowired
-    @Bean(name = "sessionFactory")
-    public SessionFactory getSessionFactory(DataSource dataSource) throws IOException {
-        Properties properties = new Properties();
-
-        properties.put("hibernate.dialect",environment.getProperty("spring.jpa.properties.hibernate.dialect"));
-        properties.put("hibernate.show.sql",environment.getProperty("spring.jpa.show.sql"));
-        properties.put("current_session_context_class",environment.getProperty("spring.jpa.properties.hibernate.current_session_context_class"));
-        properties.put("hibernate.hbm2ddl.auto",environment.getProperty("hibernate.hbm2ddl.auto"));
-        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-
-        factoryBean.setPackagesToScan(new String[]{ "" });
-        factoryBean.setDataSource(dataSource);
-        factoryBean.setHibernateProperties(properties);
-        factoryBean.afterPropertiesSet();
-
-        SessionFactory sessionFactory = factoryBean.getObject();
-        return sessionFactory;
-    }
-
-    @Autowired
-    @Bean(name = "transactionManager")
-    public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory){
-        HibernateTransactionManager transactionManager =new HibernateTransactionManager(sessionFactory);
-        return transactionManager;
-    }
-
 
 
 }
+
+/**
+ * - JDBC
+ *
+ * - Hibernate
+ *
+ * - JPA
+ *
+ * - ORM
+ *
+ * - git là 1 nền tảng quản lý các phiển bản
+ *  + SVN
+ *  + .....
+ *
+ *  - khởi tạo git
+ *  + git init: khởi tạo repository tại máy local
+ *  + server remote
+ *  + git remote set-url origin newUrl: lệnh set remote cho server local
+ *  - để đưa được code lên trên server remote
+ *      + add file vào git repository local: git add đường dẫn file
+ *      + commit lưu lại 1 phiên bản code taji1 thời điểm: git commit -m"comment tai day"
+ *
+ *- quy trình dùng git trong dự án
+ * - lấy project về:
+ *  + lệnh clone
+ *
+ * - checkout ra nhánh Feature để phát triển
+ *  + gỉ checkout -b Featrue/ten chúc nang
+ *
+ * - sau khi code và phát triển chức năng xong thì add file
+ *  + chỉ add các file code mình sửa, ko add các file config
+ * - commit với message rõ ràng
+ * - pull code từ nhánh develop về nhánh hiện tại
+ *  + git fetch: lấy về tất cả code với từ git server
+ *  + git pull origin develop: lấy code từ nhánh develop về nhánh đang phát triển
+ *  + push code lên nhánh đang phát triển
+ *  + tạo merge request đến nhánh develop
+ */

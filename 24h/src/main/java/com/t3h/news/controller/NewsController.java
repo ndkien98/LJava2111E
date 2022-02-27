@@ -4,10 +4,7 @@ import com.t3h.news.model.NewsModel;
 import com.t3h.news.service.INewsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -75,7 +72,7 @@ public class NewsController {
     public String create(Model model){
         NewsModel newsRequest = new NewsModel();
         model.addAttribute("newRequest",newsRequest);
-        return "addNews";
+        return "admin/news/addNews";
     }
 
     @PostMapping("/save")

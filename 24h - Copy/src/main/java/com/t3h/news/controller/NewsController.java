@@ -4,10 +4,7 @@ import com.t3h.news.model.NewsModel;
 import com.t3h.news.service.INewsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -67,8 +64,15 @@ public class NewsController {
     @GetMapping()
     public String getListNews(Model model){
         List<NewsModel> newsModels = iNewsService.getList();
-        model.addAttribute("news",newsModels);
+        model.addAttribute("newsModel",newsModels);
         return "admin/news/news";
+    }
+
+    @GetMapping("/{id}")
+    public String findById(Model model, @PathVariable int id){
+        NewsModel newsModel = iNewsService.findById(id);
+        model.addAttribute("newsModel",newsModel);
+        return "admin/news/detailNews";
     }
 
     @GetMapping("/create")
@@ -83,6 +87,7 @@ public class NewsController {
         iNewsService.add(newsRequest);
         return "redirect:/news";
     }
+
 
 }
 
@@ -119,26 +124,5 @@ public class NewsController {
  * + commit: sửa đôi dữ liệu trong cở sở dữ liệu
  * + rollback: đảm bảo dữ liệu sẽ nguyên vẹn như ban đầu nếu sảy ra lỗi khi thực hiện transaction
  *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+
  */

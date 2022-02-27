@@ -9,4 +9,6 @@ public interface INewsService {
     List<NewsModel> getList();
 
     NewsModel add(NewsModel newsModel);
+
+    NewsModel findById(int id);
 }

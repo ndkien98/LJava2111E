@@ -1,11 +1,15 @@
-package com.t3h.news.model;
-
+package com.t3h.news.model.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
+@Table(name = "user")
+@Entity
+public class UserEntity {
 
-public class UserModel {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String fullName;
@@ -13,6 +17,15 @@ public class UserModel {
     private String username;
 
     private String password;
+
+    private String email;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "role_user",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<RoleEntity> setRole = new HashSet<>();
+
 
     public Integer getId() {
         return id;

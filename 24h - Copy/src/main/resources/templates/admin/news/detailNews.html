@@ -55,12 +55,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Thêm bản tin</h1>
+                        <h1 class="m-0 text-dark">Chi tiết bản tin</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="index">Home</a></li>
-                            <li class="breadcrumb-item active">Thêm bản tin</li>
+                            <li class="breadcrumb-item active">Chi tiết bản tin</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -77,50 +77,46 @@
                         <div class="card-body">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Nhập thông tin chi tiết bản tin</h3>
+                                    <h3 class="card-title">Thông tin chi tiết bản tin</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
                                 <form role="form">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label >ảnh đại diện</label>
-                                            <input type="file" onchange="preview()">
-<!--                                            <img id="frame" -->
-<!--                                                 th:src="@{~/admin/img/news/71634cd6-4a1d-4255-8a73-01813d0b95ac_hd.jpg}"-->
-<!--                                                 width="100px" height="100px"/>-->
-                                            <img id="frame"
-                                                 th:src="@{~/admin/img/news}"
-                                                 width="100px" height="100px"/>
-                                            <div class="input-group">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="">Upload</span>
-                                                </div>
-                                            </div>
+<!--                                            <label for="exampleInputFile">ảnh đại diện</label>-->
+<!--                                            <div class="input-group">-->
+<!--                                                <div class="custom-file">-->
+<!--                                                    <input type="file" class="custom-file-input" id="exampleInputFile">-->
+<!--                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>-->
+<!--                                                </div>-->
+<!--                                                <div class="input-group-append">-->
+<!--                                                    <span class="input-group-text" id="">Upload</span>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
                                         </div>
                                         <div class="form-group">
                                             <label for="txtTitle">Tiêu đề</label>
-                                            <input type="text" class="form-control" id="txtTitle" placeholder="Nhập vào tiêu đề">
+                                            <input type="text" readonly th:value="${newsModel.title}" class="form-control" id="txtTitle" placeholder="Nhập vào tiêu đề">
                                         </div>
                                         <div class="form-group">
                                             <label >Nội dung</label>
                                             <form action="" method="post">
                                                 <!-- (2): textarea sẽ được thay thế bởi CKEditor -->
-                                                <textarea id="editor1" name="editor1" cols="80" rows="10">
-                                                </textarea>
+                                                <div id = "txtContent"></div>
                                             </form>
                                         </div>
                                         <div class="form-group">
                                             <label for="txtCategory">Thể loại</label>
-                                            <input type="text" class="form-control" id="txtCategory" placeholder="Thể loại">
+                                            <input type="text" readonly th:value="${newsModel.categoryName}" class="form-control" id="txtCategory" placeholder="Thể loại">
                                         </div>
                                         <div class="form-group">
                                             <label for="txtCategory">Tác giả</label>
-                                            <input type="text" class="form-control" id="txtAuthor" placeholder="Tác giả">
+                                            <input type="text" readonly th:value="${newsModel.author}" class="form-control" id="txtAuthor" placeholder="Tác giả">
                                         </div>
                                         <div class="form-group">
                                             <label for="txtOriginalResource">Link nguồn</label>
-                                            <input type="text" class="form-control" id="txtOriginalResource" placeholder="Link nguồn">
+                                            <input type="text" readonly th:value="${newsModel.originalResource}" class="form-control" id="txtOriginalResource" placeholder="Link nguồn">
                                         </div>
 
 
@@ -168,74 +164,13 @@
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
-
-    $(document).ready(function () {
-
-        // $.ajax({
-        //     type:'GET',
-        //     url:"http://localhost:8080/category",
-        //     success: function (response){
-        //         console.log(response);
-        //         var category = $("#categoryItem");
-        //         response.forEach(data => {
-        //             category.append(" <option> " + data.name + " </option>");
-        //         });
-        //     },
-        //     error: function (error){
-        //         console.log(error);
-        //     }
-        // })
-    })
-
-    function preview() {
-        frame.src=URL.createObjectURL(event.target.files[0]);
-    }
-
-
-    CKEDITOR.replace( 'editor1' );
-    $('#btnSaveNews').click(function (){
-
-        var content = CKEDITOR.instances.editor1.getData();
-        var title = $('#txtTitle').val();
-        var category = $('#txtCategory').val();
-        var originalResource = $('#txtOriginalResource').val();
-        var author = $('#txtAuthor').val();
-
-        var data = {
-            id:100,
-            content: content,
-            title: title,
-            categoryId: category,
-            originalResource: originalResource,
-            author: author
-        }
-        console.log(JSON.stringify(data))
-
-        $.ajax({
-            type:'POST',
-            url:"http://localhost:8080/api/admin/news",
-            data: JSON.stringify(data),
-            contentType:'application/json',
-            success: function (response){
-                debugger;
-                console.log(response);
-                alert("success")
-                window.location.replace("http://localhost:8080/cms/admin/news");
-            },
-            error: function (error){
-                console.log(error);
-            }
-        })
-
-    });
-
-
-
-
-
-
 </script>
 <!-- Bootstrap 4 -->
+<script th:inline="javascript">
+    var data = [[${newsModel}]]
+    var content =  $('#txtContent');
+    content.append(data.content);
+</script>
 
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -274,10 +209,9 @@
 <script th:src="@{/admin/dist/js/demo.js}"></script>
 <!-- CK Editor -->
 
-<!--<script>-->
-<!--    $.widget.bridge('uibutton', $.ui.button)-->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
 
-
-<!--</script>-->
+</script>
 </body>
 </html>

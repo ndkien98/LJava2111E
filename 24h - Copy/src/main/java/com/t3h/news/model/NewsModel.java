@@ -1,6 +1,7 @@
 package com.t3h.news.model;
 
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 public class NewsModel {
@@ -23,13 +24,15 @@ public class NewsModel {
 
     private String author = "";
 
-    private String categoryId;
+    private int categoryId;
 
     private String originalResource;
 
     private int numberAccess;
 
     private int censor;
+
+    private String categoryName;
 
     public Integer getId() {
         return id;
@@ -103,11 +106,11 @@ public class NewsModel {
         this.author = author;
     }
 
-    public String getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -133,5 +136,13 @@ public class NewsModel {
 
     public void setCensor(int censor) {
         this.censor = censor;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

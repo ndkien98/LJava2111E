@@ -75,19 +75,19 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Tiêu đề</th>
-                                <th>Tác giả</th>
+                                <th th:style="'width:10%'">Tác giả</th>
                                 <th>Nguồn</th>
-                                <th>Số lần truy cập</th>
-                                <th>Hành động</th>
+                                <th th:style="'width:14%'">Số lần truy cập</th>
+                                <th th:style="'width:10%'">Hành động</th>
                             </tr>
-                            <tr th:each ="data : ${news}">
+                            <tr th:each ="data: ${newsModel}">
                                 <td th:utext="${data.id}"></td>
                                 <td th:utext="${data.title}">...</td>
                                 <td th:utext="${data.author}">...</td>
                                 <td th:utext="${data.originalResource}">...</td>
                                 <td th:utext="${data.numberAccess}">...</td>
                                 <td>
-                                    <button>Chi tiết</button>
+                                    <button th:onclick="'javascript:details(' + ${data.id} + ')'">Chi tiết</button>
                                 </td>
                             </tr>
                         </table>
@@ -138,9 +138,11 @@
 
             window.location.href = 'http://localhost:8080/cms/admin/news/create'
         });
-
-
     });
+
+    function details(id){
+        window.location.href = 'http://localhost:8080/cms/admin/news/' + id;
+    }
 
 </script>
 <!-- Bootstrap 4 -->

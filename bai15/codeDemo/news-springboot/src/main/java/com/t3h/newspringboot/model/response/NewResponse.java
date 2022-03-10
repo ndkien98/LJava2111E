@@ -1,4 +1,4 @@
-package model.response;
+package com.t3h.newspringboot.model.response;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package model.entity;
+package com.t3h.newspringboot.model.entity;
 
 import lombok.Data;
 
@@ -18,8 +18,8 @@ public abstract class BaseEntity {
     private Timestamp updateDate;
 
     @Column(nullable = true)
-    private int creatorId;
+    private Integer creatorId;
 
     @Column(nullable = true)
-    private int editorId;
+    private Integer editorId;
 }

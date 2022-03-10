@@ -1,4 +1,4 @@
-package model.entity;
+package com.t3h.newspringboot.model.entity;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Data
-@Table(name = "NEWS")
+@Table(name = "NEW")
 @Entity
 public class NewsEntity extends BaseEntity{
 
@@ -20,11 +20,12 @@ public class NewsEntity extends BaseEntity{
 
     private String author;
 
-    private int categoryId;
+    @Column
+    private Integer categoryId;
 
     private String originalResource;
 
-    private int numberAccess;
+    private Integer numberAccess;
 
-    private int censor;
+    private Integer censor;
 }

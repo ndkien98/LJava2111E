@@ -1,4 +1,4 @@
-package model.entity;
+package com.t3h.newspringboot.model.entity;
 
 import lombok.Data;
 

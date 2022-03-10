@@ -1,4 +1,4 @@
-package model.entity;
+package com.t3h.newspringboot.model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

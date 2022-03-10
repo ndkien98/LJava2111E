@@ -1,4 +1,4 @@
-package model.request;
+package com.t3h.newspringboot.model.request;
 
 import lombok.Getter;
 import lombok.Setter;
